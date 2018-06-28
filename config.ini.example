@@ -1,0 +1,9 @@
+[ssh]
+host = localhost
+user = ubuntu
+pkey = /home/ubuntu/.ssh/id_rsa
+
+[carbon]
+host = localhost
+port = 2003
+prefix = home.address.bedroom
