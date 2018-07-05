@@ -154,7 +154,13 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# Editor-based Rest Client
-.idea/httpRequests
+# Whole JetBrains
+.idea/
 
 config.ini
+grafana_storage
+graphite_conf
+graphite_storage
+statsd_conf
+grafana_variables.env
+

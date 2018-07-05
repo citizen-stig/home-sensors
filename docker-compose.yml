@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  graphite:
+    image: "graphiteapp/graphite-statsd"
+    ports:
+      - "127.0.0.1:2003:2003"
+      - "127.0.0.1:2004:2004"
+      - "127.0.0.1:2023:2023"
+      - "127.0.0.1:2024:2024"
+    volumes:
+      - ./graphite_conf:/opt/graphite/conf
+      - ./graphite_storage:/opt/graphite/storage
+      - ./statsd_conf:/opt/statsd
+  grafana:
+    image: "grafana/grafana"
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./grafana_storage:/var/lib/grafana
+    env_file:
+      - grafana_variables.env
