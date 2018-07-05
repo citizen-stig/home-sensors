@@ -1,4 +1,3 @@
-from datetime import datetime
 import configparser
 
 import sensors
@@ -28,18 +27,24 @@ def main():
         sender_class=CarbonClient,
     )
 
-    available_sensors = [
-        (x.replace('get_', ''), getattr(sensors, x))
-        for x in dir(sensors)
-        if x.startswith('get_')
-    ]
-    for sensor_name, get_sensor_value in available_sensors:
-        value = get_sensor_value()
-        metric = prefix + '.' + sensor_name
-        timestamp = datetime.utcnow()
-        print(timestamp, metric, value)
-        # carbon_client.send(metric, timestamp, value)
-        carbon_ssh_client.send(metric, timestamp, value)
+    # Temperature and humidity
+    ht_pin = int(config.get('sensors', 'ht_pin'))
+    ht_timestamp, humidity, temperature = sensors.get_humidity_and_temperature(ht_pin)
+
+    carbon_ssh_client.send(prefix + '.temperature', ht_timestamp, temperature)
+    carbon_ssh_client.send(prefix + '.humidity', ht_timestamp, humidity)
+
+    # Noise
+
+    # Dust
+
+
+    # for sensor_name, get_sensor_value in available_sensors:
+    #     timestamp, value = get_sensor_value()
+    #     metric = prefix + '.' + sensor_name
+    #     print(timestamp, metric, value)
+    #     # carbon_client.send(metric, timestamp,  value)
+    #     carbon_ssh_client.send(metric, timestamp, value)
 
 
 if __name__ == '__main__':
