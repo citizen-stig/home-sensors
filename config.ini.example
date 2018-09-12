@@ -10,4 +10,4 @@ prefix = home.address.bedroom
 
 [sensors]
 humidity_and_temperature_pin = 4
-sound_pin = 4
+sound_pin = 0
