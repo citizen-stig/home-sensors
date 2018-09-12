@@ -14,7 +14,7 @@ services:
       - ./statsd_conf:/opt/statsd
   grafana:
     image: "grafana/grafana:5.1.0"
-    user: "104"
+    user: ${CURRENT_UID}
     ports:
       - "127.0.0.1:3000:3000"
     volumes:
