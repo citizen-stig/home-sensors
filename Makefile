@@ -1,2 +1,9 @@
+export CURRENT_UID = $(id -u)
+
 start:
-	CURRENT_UID=$(id -u) docker-compose up -d
+	docker-compose up -d
+
+restart:
+	docker-compose stop
+	docker-compose rm
+	docker-compose up -d
