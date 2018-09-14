@@ -27,9 +27,8 @@ class SSHTunnelWrapper(object):
         self.ssh_key_path = ssh_key_path
         self.remote_host = remote_host
         self.remote_port = remote_port
-        self.local_bind_address = 'localhost'
-        # self.local_port = find_free_port()
-        self.local_port = 2003
+        self.local_bind_address = '127.0.0.1'
+        self.local_port = find_free_port()
         self.server = None
         self.sender = sender_class(server=self.local_bind_address, port=self.local_port)
         self.logger = None
