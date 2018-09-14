@@ -47,12 +47,12 @@ def send_to_carbon(config: configparser.ConfigParser, data: dict) -> None:
         username=ssh_user,
         remote_host=carbon_host,
         remote_port=carbon_port,
-        sender_class=CarbonClient,
+        sender_class=CarbonClient
     )
-
     for metric, item in data.items():
         timestamp, value = item
         carbon_ssh_client.send(metric, timestamp, value)
+        time.sleep(1)
 
     carbon_ssh_client.stop()
 

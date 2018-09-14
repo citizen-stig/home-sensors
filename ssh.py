@@ -34,6 +34,7 @@ class SSHTunnelWrapper(object):
         self.logger = None
         if debug:
             self.logger = sshtunnel.create_logger(loglevel=10)
+        self._init_server()
 
     def _init_server(self):
 
