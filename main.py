@@ -1,12 +1,10 @@
-import configparser
-
+from config import get_config
 from sensors import read_sensors_data
 from carbon_client import send_to_carbon
 
 
 def main():
-    config = configparser.ConfigParser()
-    config.read('config.ini')
+    config = get_config()
 
     data = read_sensors_data(config)
     send_to_carbon(config, data)
