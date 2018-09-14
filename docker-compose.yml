@@ -8,6 +8,7 @@ services:
       - "127.0.0.1:2004:2004"
       - "127.0.0.1:2023:2023"
       - "127.0.0.1:2024:2024"
+      - "127.0.0.1:8888:80"
     volumes:
       - ./graphite_conf:/opt/graphite/conf
       - ./graphite_storage:/opt/graphite/storage
