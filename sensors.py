@@ -1,3 +1,4 @@
+import configparser
 from datetime import datetime
 from typing import Tuple
 import atexit
@@ -38,3 +39,42 @@ def get_dust() -> Tuple[datetime, int]:
         time.sleep(3)
     else:
         raise ValueError('Cannot read values from dust sensor')
+
+
+def read_sensors_data(config: configparser.ConfigParser) -> dict:
+    data = {}
+    prefix = config.get('carbon', 'prefix')
+
+    # Humidity and Temperature
+    humidity_and_temperature_pin = int(
+        config.get('sensors', 'humidity_and_temperature_pin'))
+    timestamp, humidity, temperature = get_humidity_and_temperature(
+        humidity_and_temperature_pin)
+    data[prefix + '.temperature'] = (timestamp, temperature)
+    data[prefix + '.humidity'] = (timestamp, humidity)
+
+    # Noise
+    sound_pin = int(
+        config.get('sensors', 'sound_pin'))
+    timestamp, noise = get_noise(sound_pin)
+    data[prefix + '.noise'] = (timestamp, noise)
+
+    # Dust
+    try:
+        timestamp, dust = get_dust()
+        data[prefix + '.dust'] = (timestamp, dust)
+    except ValueError:
+        pass
+
+    return data
+
+
+def self_check():
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    data = read_sensors_data(config)
+    print(data)
+
+
+if __name__ == '__main__':
+    self_check()
