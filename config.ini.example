@@ -4,7 +4,7 @@ user = ubuntu
 pkey = /home/ubuntu/.ssh/id_rsa
 
 [carbon]
-host = localhost
+host = lcalhost
 port = 2003
 prefix = home.address.bedroom
 
